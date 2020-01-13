@@ -1,6 +1,7 @@
 package com.example.didemo.controllers;
 
 import com.example.didemo.app.Car;
+import com.example.didemo.app.Invoice;
 import com.example.didemo.app.Vehicle;
 import com.example.didemo.config.AppConfig;
 import org.springframework.beans.BeanUtils;
@@ -14,12 +15,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 
 public class HomeController {
+    @Autowired
+    private Invoice invoice;
 
     @GetMapping("/")
     public String getVehicle() {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         Vehicle vehicle = context.getBean(Car.class);
         return vehicle.drive();
+    }
+
+    @RequestMapping(value = "/invoice", method = RequestMethod.GET)
+    public String getInvoice() {
+        return this.invoice.getName();
     }
 
     @RequestMapping(value = "/items/{id}", method = RequestMethod.DELETE)
