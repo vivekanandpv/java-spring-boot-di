@@ -2,6 +2,7 @@ package com.example.didemo.controllers;
 
 import com.example.didemo.app.Car;
 import com.example.didemo.app.Invoice;
+import com.example.didemo.app.Person;
 import com.example.didemo.app.Vehicle;
 import com.example.didemo.config.AppConfig;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +19,9 @@ public class HomeController {
     @Autowired
     private Invoice invoice;
 
+    @Autowired
+    private Person person;
+
     @GetMapping("/")
     public String getVehicle() {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -28,6 +32,11 @@ public class HomeController {
     @RequestMapping(value = "/invoice", method = RequestMethod.GET)
     public String getInvoice() {
         return this.invoice.getName();
+    }
+
+    @RequestMapping(value = "/person", method = RequestMethod.GET)
+    public String getPerson() {
+        return this.person.getName();
     }
 
     @RequestMapping(value = "/items/{id}", method = RequestMethod.DELETE)
