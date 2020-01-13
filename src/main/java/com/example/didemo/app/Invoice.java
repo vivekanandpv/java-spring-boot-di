@@ -9,16 +9,14 @@ import org.springframework.stereotype.Component;
 public class Invoice {
 
 
-
+    @Autowired
     private Customer customerInstance;
 
-    @Autowired
-    public void setCustomerInstance(Customer customerInstance) {
-
-        this.customerInstance = customerInstance;
-    }
+    @Autowired(required = false)    //  component not configured. hence will not be provided.
+    private Address address;
 
     public String getName() {
-        return "Invoice for " + customerInstance.getName();
+        boolean status = this.address == null;
+        return "Invoice for " + customerInstance.getName() + " address is null: " + status ;
     }
 }
